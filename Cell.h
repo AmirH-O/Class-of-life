@@ -8,13 +8,11 @@ public:
 		this->DNA = DNA;
 		this->RNA = RNA;
 	}
-	~Genome() { // Death of cell
-		cout << "Cell died!\n";
-	}
+	~Genome() {} // Destructing a chromosome
 	pair<string, string> get_DNA() { // Getter function for DNA
 		return DNA;
 	}
-	string get_RNA() { // Getter function for RNA
+	string get_RNA() { // Getter function for RNA 
 		return RNA;
 	}
 	char get_nucleotide(char x) { // Creates nucleotdie complement
@@ -116,7 +114,7 @@ public:
 			res += RNA[i];
 		RNA = res;
 	}
-private:
+protected:
 	string RNA;
 	pair<string, string> DNA; 
 };
@@ -124,9 +122,13 @@ private:
 
 class Cell : public Genome {
 public:
+	Cell() {}
 	Cell(vector<Genome> chromosome) : Genome() { // Initial data of the cell's chromosomes
 		this->chromosome = chromosome;
 	} 
+	vector<Genome> get_chromosome() {
+		return chromosome;
+	}
 	char get_nucleotide(char x) { // Creates nucleotdie complement
 		if(x == 'T') return 'A';
 		if(x == 'A') return 'T';
@@ -141,7 +143,7 @@ public:
 					cnt++;
 			}
 			if(cnt > 5)
-				chromosome[i].~Genome();
+				delete this;
 		} 
 	}
 	void major_genetic_mutation(string s1, int n, string s2, int m) { // Major mutation in the DNA
@@ -181,6 +183,6 @@ public:
 			}
 		}
 	}
-private:
+protected:
 	vector<Genome> chromosome; 
-}; 
+};
