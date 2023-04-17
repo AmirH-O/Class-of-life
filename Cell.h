@@ -157,7 +157,6 @@ public:
 		chromosome[n - 1].reverse_DNA_mutation(s);
 	}
 	void complementary_palindrome(int n) { // Finding all the complementary palindromes in the DNA
-		cout << "Complementary palindrome's of chromosome " << n << ":\n";
 		int sz1 = chromosome[n - 1].get_DNA().first.size();
 		int sz2 = chromosome[n - 1].get_DNA().second.size();
 		string RNA1 = chromosome[n - 1].get_DNA().first;
@@ -169,7 +168,7 @@ public:
 					cout << RNA1.substr(p1, p2 - p1 + 1) << '\n';
 					p1--, p2++;
 				}
-				else break;
+				else p1--, p2++;
 			}
 		}
 		for(int i = 1; i < sz2 - 2; i++) { // Iterating over the second RNA
@@ -179,7 +178,7 @@ public:
 					cout << RNA2.substr(p1, p2 - p1 + 1) << '\n';
 					p1--, p2++;
 				}
-				else break;
+				else p1--, p2++;
 			}
 		}
 	}

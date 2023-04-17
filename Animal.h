@@ -5,7 +5,10 @@ using namespace std;
 class Virus;
 class Animal : public Cell {
 public: 
-	Animal() : Cell() {} 
+	Animal() : Cell() {}
+	Animal(Cell animal_cell) : Cell() {
+		this->animal_cell = animal_cell;
+	} 
 	Cell get_cell() {
 		return animal_cell;
 	}
@@ -120,13 +123,15 @@ public:
 		} 
 	}
 	friend class Virus;
-protected: 
 	Cell animal_cell;
 };
 
 class Virus : public Genome {
 public:
 	Virus() : Genome() {}
+	Virus(string RNA) : Genome() {
+		this->RNA = RNA;
+	}
 	char get_nucleotide(char x) { // Creates nucleotdie complement
 		if(x == 'T') return 'A';
 		if(x == 'A') return 'T';
