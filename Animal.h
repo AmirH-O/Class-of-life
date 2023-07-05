@@ -18,7 +18,7 @@ public:
 		if(x == 'C') return 'G';
 		if(x == 'G') return 'C';
 	}
-	double genetic_similarity_percentage(Animal animal) {
+	double genetic_similarity_percentage(Animal animal) { // Checks genetic similarity
 		string s1 = "" , s2 = "";
 
 		for(int i = 0; i < animal_cell.get_chromosome().size(); i++)
@@ -46,13 +46,13 @@ public:
 		double percentage = 100.0 - ((double)dp[n][m] * 100.0 / (double)max(n, m));	
 		return percentage;
 	}
-	bool operator == (Animal animal) {
+	bool operator == (Animal animal) { // Checks wether two animals are related
 		if(genetic_similarity_percentage(animal) >= 70)
 			return true;
 		else 
 			return false;
 	}
-	Animal asexual_reproduction() {
+	Animal asexual_reproduction() { // Performing asexual reproduction
 		srand(time(NULL));
 
 		vector<Genome> chromosomes = animal_cell.get_chromosome();
@@ -77,14 +77,15 @@ public:
 
 		return child;
 	}
-	Animal operator + (Animal animal) {
+	Animal operator + (Animal animal) { // performing sexual reproduction
 		srand(time(NULL));
 		
 		Animal temp1 = this->asexual_reproduction();
 		Animal temp2 = animal.asexual_reproduction();
 
-		if(temp1.animal_cell.get_chromosome().size() % 2 == 1 || temp2.animal_cell.get_chromosome().size() % 2 == 1) 
+		if(temp1.animal_cell.get_chromosome().size() % 2 == 1 || temp2.animal_cell.get_chromosome().size() % 2 == 1) {
 			cout << "Cannot reproduce!\n";
+		}
 		else {
 			vector<int> rand_indx1, rand_indx2;
 
@@ -111,7 +112,7 @@ public:
 			return child;
 		}
 	}
-	void cell_death() { 
+	void cell_death() { // Kills an invalid cell
 		for(int i = 0; i < animal_cell.get_chromosome().size(); i++) {
 			int cnt = 0;
 			for(int j = 0; j < animal_cell.get_chromosome()[i].get_DNA().first.size(); j++) { 
@@ -138,7 +139,7 @@ public:
 		if(x == 'C') return 'G';
 		if(x == 'G') return 'C';
 	}
-	bool is_harmful(Animal animal) {
+	bool is_harmful(Animal animal) { // Checks wether the virus is harmful to the animal or not
 		vector<string> arr;
 
 		for(int i = 0; i < animal.get_cell().get_chromosome().size(); i++) 	
@@ -179,4 +180,4 @@ public:
 	}
 private:
 	string RNA;
-};
+}; 

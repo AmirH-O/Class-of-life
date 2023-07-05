@@ -8,7 +8,6 @@ public:
 		this->DNA = DNA;
 		this->RNA = RNA;
 	}
-	~Genome() {} // Destructing a chromosome
 	pair<string, string> get_DNA() { // Getter function for DNA
 		return DNA;
 	}
@@ -29,6 +28,7 @@ public:
 			if(RNA[i] == 'C') comp_RNA += 'G';
 			if(RNA[i] == 'G') comp_RNA += 'C';
 		}
+
 		cout << "DNA: " << RNA << '\n';
 		cout << "     " << comp_RNA << '\n';
 	} 
@@ -39,9 +39,11 @@ public:
 			if(DNA.first[i] == curr) 
 				DNA.first[i] = res, cnt++;
 		}
+
 		cnt = 0;
 		curr = get_nucleotide(curr);
 		res = get_nucleotide(res);
+
 		for(int i = 0; i < DNA.second.size(); i++) {
 			if(cnt == n) break;
 			if(DNA.second[i] == curr) 
@@ -59,59 +61,79 @@ public:
 	void major_DNA_genetic_mutation(string s1, string s2) { // Major mutation in DNA
 		int indx = DNA.first.find(s1);
 		string res1 = "", res2 = ""; 
+
 		for(int i = 0; i < indx; i++) {
 			res1 += DNA.first[i];
 			res2 += DNA.second[i];
 		}
+
 		res1 += s2;
+
 		for(int i = 0; i < s2.size(); i++) 
 			s2[i] = get_nucleotide(s2[i]);
+
 		res2 += s2;
+
 		for(int i = indx + s2.size(); i < DNA.first.size(); i++) {
 			res1 += DNA.first[i];
 			res2 += DNA.second[i];
 		}
+
 		DNA.first = res1;
 		DNA.second = res2; 
 	}
 	void major_RNA_genetic_mutation(string s1, string s2) { // Major mutation in RNA
 		int indx = RNA.find(s1);
 		string res = "";
+
 		for(int i = 0; i < indx; i++) 
 			res += RNA[i];
+			
 		res += s2;
+
 		for(int i = indx + s2.size(); i < RNA.size(); i++)  
 			res += RNA[i];
+
 		RNA = res;
 	}
 	void reverse_DNA_mutation(string s) { // Reverse mutation in DNA
 		int indx = DNA.first.find(s);
 		string res1 = "", res2 = ""; 
+
 		for(int i = 0; i < indx; i++) {
 			res1 += DNA.first[i];
 			res2 += DNA.second[i];
 		}
+
 		reverse(s.begin(), s.end());
 		res1 += s;
+
 		for(int i = 0; i < s.size(); i++) 
 			s[i] = get_nucleotide(s[i]);
+
 		res2 += s;
+
 		for(int i = indx + s.size(); i < DNA.first.size(); i++) {
 			res1 += DNA.first[i];
 			res2 += DNA.second[i];
 		}
+
 		DNA.first = res1;
 		DNA.second = res2; 
 	}
 	void reverse_RNA_mutation(string s) { // Reverse mutation in RNA
 		int indx = RNA.find(s);
 		string res = "";
+
 		for(int i = 0; i < indx; i++) 
 			res += RNA[i];
+
 		reverse(s.begin(), s.end());
 		res += s;
+
 		for(int i = indx + s.size(); i < RNA.size(); i++)  
 			res += RNA[i];
+
 		RNA = res;
 	}
 protected:
@@ -159,10 +181,13 @@ public:
 	void complementary_palindrome(int n) { // Finding all the complementary palindromes in the DNA
 		int sz1 = chromosome[n - 1].get_DNA().first.size();
 		int sz2 = chromosome[n - 1].get_DNA().second.size();
+
 		string RNA1 = chromosome[n - 1].get_DNA().first;
 		string RNA2 = chromosome[n - 1].get_DNA().second;
+
 		for(int i = 1; i < sz1 - 2; i++) { // Iterating over the fisrt RNA
 			int p1 = i, p2 = i + 1;
+
 			while(p1 != -1 && p2 != sz1) {
 				if(RNA1[p1] == get_nucleotide(RNA1[p2]) && p2 - p1 != 1) {
 					cout << RNA1.substr(p1, p2 - p1 + 1) << '\n';
@@ -173,6 +198,7 @@ public:
 		}
 		for(int i = 1; i < sz2 - 2; i++) { // Iterating over the second RNA
 			int p1 = i, p2 = i + 1;
+
 			while(p1 != -1 && p2 != sz2) {
 				if(RNA2[p1] == get_nucleotide(RNA2[p2]) && p2 - p1 != 1) {
 					cout << RNA2.substr(p1, p2 - p1 + 1) << '\n';
